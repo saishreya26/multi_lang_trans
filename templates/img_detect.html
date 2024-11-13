@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Language Detection</title>
+</head>
+<body>
+    <h1>Upload an Image to Detect Language</h1>
+
+    <!-- Form to upload image -->
+    <form action="/img_detect" method="POST" enctype="multipart/form-data">
+        <label for="image">Select an image:</label><br>
+        <input type="file" name="image" id="image" accept="image/*"><br><br>
+        <button type="submit">Detect Language</button>
+    </form>
+
+    {% if detected_language %}
+        <h3>Detected Language: {{ detected_language }}</h3>
+        <p>Language Name: {{ language_name }}</p>
+        <h4>Extracted Text:</h4>
+        <p>{{ extracted_text }}</p>
+    {% endif %}
+
+    <br><br>
+    <a href="/">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Language Translator</title>
+    <style>
+        /* Styling the form and translations */
+        .translations { margin-top: 20px; }
+        .translation { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h2>Multi-Language Text Translator</h2>
+
+    <!-- Form to accept text and languages -->
+    <form action="/multi" method="POST">
+        <label for="text">Enter Text to Translate:</label>
+        <textarea name="text" id="text" rows="4" placeholder="Enter your text here..." required></textarea>
+
+        <label>Select Languages to Translate To:</label>
+        <div>
+            {% for code, language in languages.items() %}
+                <label>
+                    <input type="checkbox" name="languages" value="{{ code }}">
+                    {{ language }}
+                </label><br>
+            {% endfor %}
+        </div>
+
+        <button type="submit">Translate</button>
+    </form>
+
+    {% if translations %}
+        <div class="translations">
+            <h3>Translations:</h3>
+            {% for language, translation in translations.items() %}
+                <div class="translation">
+                    <h4>{{ language }}:</h4>
+                    <p>{{ translation }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% elif error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+    <br><br>
+    <a href="/">Back to Home</a>
+</body>
+</html>

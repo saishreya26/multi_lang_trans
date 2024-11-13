@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summarize and Translate Text</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Summarize and Translate Text</h2>
+
+    <!-- Form to accept text for summarization and language selection -->
+    <form action="/summarize" method="POST">
+        <label for="input_text">Enter Text to Summarize:</label>
+        <textarea name="input_text" id="input_text" placeholder="Enter your text here..." required>{{ input_text if input_text else '' }}</textarea><br><br>
+
+        <label for="target_lang">Select Target Language for Translation:</label>
+        <select name="target_lang" id="target_lang" required>
+            {% for code, language in languages.items() %}
+                <option value="{{ code }}" {% if code == target_lang %}selected{% endif %}>{{ language }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Summarize & Translate</button>
+    </form>
+
+    {% if summary %}
+        <h3>Summary:</h3>
+        <p>{{ summary }}</p>
+
+        <h3>Translated Summary ({{ target_lang }}):</h3>
+        <p>{{ translated_summary }}</p>
+    {% elif error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <br><br>
+    <a href="/">Back to Home</a>
+</body>
+</html>
